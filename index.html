@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMA Consulting</title>
+<style>
+    /* CSS styles */
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+    .container {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+    }
+    label {
+        font-weight: bold;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+    input[type="submit"] {
+        background-color: #4CAF50;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+    .error {
+        color: red;
+        font-size: 0.8em;
+        margin-top: 5px;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact DMA Consulting</h1>
+        <form id="contactForm" action="https://formspree.io/f/xvoenpgb" method="post">
+            <label for="firstName">First Name:</label><br>
+            <input type="text" id="firstName" name="firstName" required><br><br>
+
+            <label for="lastName">Last Name:</label><br>
+            <input type="text" id="lastName" name="lastName" required><br><br>
+
+            <label for="birthday">Birthday:</label><br>
+            <input type="date" id="birthday" name="birthday" required><br><br>
+
+            <label for="phone">Phone Number:</label><br>
+            <input type="tel" id="phone" name="phone" required><br><br>
+
+            <label for="country">Country:</label><br>
+            <select id="country" name="country">
+                <option value="USA">USA</option>
+                <option value="Canada">Canada</option>
+                <option value="UK">UK</option>
+                <!-- Add more options as needed -->
+            </select><br><br>
+
+            <label for="email">Email Address:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="message">Message (max 250 characters):</label><br>
+            <textarea id="message" name="message" maxlength="250" required></textarea><br><br>
+
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        // JavaScript code for form validation
+        const form = document.getElementById('contactForm');
+        const firstName = document.getElementById('firstName');
+        const lastName = document.getElementById('lastName');
+        const email = document.getElementById('email');
+        const message = document.getElementById('message');
+
+        form.addEventListener('submit', function (event) {
+            let valid = true;
+
+            if (!validateText(firstName.value)) {
+                showError(firstName, 'Please enter a valid first name.');
+                valid = false;
+            }
+
+            if (!validateText(lastName.value)) {
+                showError(lastName, 'Please enter a valid last name.');
+                valid = false;
+            }
+
+            if (!validateEmail(email.value)) {
+                showError(email, 'Please enter a valid email address.');
+                valid = false;
+            }
+
+            if (!validateMessage(message.value)) {
+                showError(message, 'Please enter a message with no more than 250 characters.');
+                valid = false;
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Prevent form submission if validation fails
+            }
+        });
+
+        function validateText(text) {
+            return text.trim().length > 0;
+        }
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function validateMessage(message) {
+            return message.trim().length <= 250;
+        }
+
+        function showError(input, message) {
+            const errorDiv = input.nextElementSibling;
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
